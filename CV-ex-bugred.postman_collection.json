@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "1773c777-5fb5-4085-8eef-b970225d9fe0",
+		"name": "CV-ex-bugred",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "doRegister",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://users.bugred.ru/tasks/rest/doregister?email=test_FTT@zmail.com&name=Klark7550&password=qwerty123",
+					"protocol": "http",
+					"host": [
+						"users",
+						"bugred",
+						"ru"
+					],
+					"path": [
+						"tasks",
+						"rest",
+						"doregister"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "test_FTT@zmail.com"
+						},
+						{
+							"key": "name",
+							"value": "Klark7550"
+						},
+						{
+							"key": "password",
+							"value": "qwerty123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doRegister",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Error message an existing user\", function () {\r",
+							"     var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\" Текущее ФИО Artsiom0575 уже есть в базе\");\r",
+							"});\r",
+							"  \r",
+							" pm.test(\"Error message an existing email\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\" email test_KLL@zmail.com уже есть в базе\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test_KLL@zmail.com\",\r\n    \"name\": \"Artsiom0575\",\r\n    \"password\": \"A123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://users.bugred.ru/tasks/rest/doregister",
+					"protocol": "http",
+					"host": [
+						"users",
+						"bugred",
+						"ru"
+					],
+					"path": [
+						"tasks",
+						"rest",
+						"doregister"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
